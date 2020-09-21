@@ -1,0 +1,36 @@
+# 4. My script to return your labs after I grade them is structurally very similar 
+# to the scripts you’re writing for this assignment. I would like to add logic to my 
+# script to send email notifications to students after I return graded labs. 
+# The mail command can be used from the command line to send an email. 
+# Any content sent to the command on STDIN will be sent as the body of the message. 
+# For example, something like echo Graded labs returned: 
+#  $labs | mail -s 'CSC225 labs graded' browng@utica.edu will send a notification to that user. 
+# Modify the previous script so that your for loop sends an email notifying 
+# students that labs have been returned. Each student should receive one email 
+# containing a list of all returned labs. 
+# Do not actually send emails! 
+# Prefix your command string with the echo command to preview what will be 
+# executed instead of actually executing it. We need to escape the |, so be sure 
+# to enclose the whole thing in double quotes. 
+# echo "echo Graded labs returned: $labs | mail -s 'CSC225 labs graded ' browng@utica.edu 
+
+
+#!/bin/bash
+# File name: csc225-lab32-q04.sh
+# Author: Dawn Inman
+# Date Written: December 21, 2019
+# Purpose: For each User, display a list of labs to send via email
+# Description: User and labs need to be in one command line
+# Example: 4, 8, 10, 13 inside the email and username in front of the email \@
+#
+#
+#
+users=$(ls /opt/pub/csc225/data/lab28/* | awk -F "[-.]" '{ print $3 }' | sort -u)
+for user in $users; do
+lab=$(ls /opt/pub/csc225/data/lab28/csc225-lab*-$user.pdf | awk -F "-" '{ print $2 }' | sort -n -k 1.4)
+lablist=$(echo "$lab" | tr -d '\n' | sed 's/lab\([0-9]\+\)/\1,/g;s/,$//')
+echo "echo Graded labs returned: $lablist | mail -s 'CSC225 labs graded' $user@utica.edu"
+#the biggest issue for me was keeping the script inside of the loop. 
+# When it is taken out of the loop, the variables
+# don't work with the for user function like inside the loop
+done

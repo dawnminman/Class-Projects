@@ -1,0 +1,22 @@
+#Write a shell script which will accept an unlimited number of integers as command line arguments.  
+#Your script shall calculate and output the sum of these integers. 
+
+
+
+#!/bin/bash
+# File name: csc225−lab33−q02.sh
+# Author: Dawn Inman
+# Date Written: 12−24−2019
+5 # Assignment: Lab 33 question 2
+# Purpose: add unlimited integers
+# Description: obtain user input of unlimited integers as command line
+# arguments. Script calculates and outputs the Sum.
+#
+#
+echo "$*"
+sum=0
+for d in "$*";
+do
+sum=$(expr "$sum" + "$d")
+done
+echo "The Sum for these digits is: $sum"

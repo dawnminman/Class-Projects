@@ -1,0 +1,24 @@
+#Write a shell script which will prompt the user to input two integers, 
+#read the input, compute, and output their product.   
+
+#!/bin/sh
+# File name: csc225−lab35−q01.sh
+# Author: Dawn Inman
+# Date Written: 12−27−2019
+# Assignment: Lab 35 question 1
+# Purpose: prompt the user for 2 integers compute and show their product.
+# Description: get the product. if empty or not valid input, give error and exit
+# Validate input provided by user to ensure both variables
+# are digits.
+#
+read −p "Provide two integers to multiply together:" var1 var2
+if [ −z "$var1" ] && echo "Invalid input";
+	then
+		exit 1
+elif [ −z "$var2" ] && echo "Invalid input";
+	then
+		exit 1
+	else
+		product=$(expr "$var1" \* "$var2")
+		echo " $product"
+fi

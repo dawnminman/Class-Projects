@@ -1,0 +1,45 @@
+#Remove all zero-sized ordinary files from the directory passed as a command line argument.  Use the 
+#present working directory if no argument is specified.  
+#Be sure to verify a given argument is a directory 
+#that exists before proceeding.  Use of the find utility will not be an acceptable solution.  
+#Create a directory and use the touch command to create zero-sized files for testing. 
+
+
+#!/bin/sh
+# File name: csc225−lab35−q05.sh
+# Author: Dawn Inman
+# Date Written: 12−26−2019
+# Assignment: Lab 33 question 5
+# Purpose: Remove all zero sized files
+# Description: Remove all zero sized files from directory input in command line
+# use present working directory if no directory specified
+# verify if the argument is a directory before proceeding
+# test on a special set up directory, ~/bin/testfiles_to_delete
+#variable from the command line, set curret directory to a variable
+
+echo $1
+dir=$(pwd)
+# if statement to find out if the file is not a directory
+if [ ! −d "$1" ] ; then
+	echo "Not a directory" | exit 1
+# else if statement for action if the file is a directory
+elif [ −d $1 ] ; then
+	for file in $1 ; do
+# the statement is true if the file does not have a size greater than zero
+	echo "I got this far"
+	if [ ! −s "$file" ] ; then
+		echo " I will remove a file: $file"
+		rm "$file"
+fi
+done
+# statement for action if there was no directory listed at the command line
+
+elif [ −z $dir ] ; then
+	echo "I am now at the pwd"
+	for localfile in $dir ; do
+		if [ ! −s localfile ]; then
+			echo "I am going to remove a file from pwd"
+			rm "$localfile"
+		fi
+	done
+fi

@@ -1,0 +1,49 @@
+#Write shell scripts to solve the following problems. Save each script in its own file per the
+#shell script submission requirements on the class website.
+#1. Write a shell script you can use to submit future scripting lab assignments. Your
+#script shall:
+#a. Accept a lab number as a command line argument. If no command line
+#argument is provided, display an appropriate error message and exit the
+#script.
+#b. Execute the script command, saving the output to ~/bin/labXX.out
+#where XX is the lab number accepted as an argument. Executing the
+#script command will launch a recording shell. Within this shell you can
+#demonstrate execution of your lab assignments. Type exit to terminate
+#the recording shell and resume execution of your shell script.
+#c. Execute a command string similar to the following to gather your shell script
+#assignments and the output of the script command and generate a PDF for
+#submission:
+#a2ps -A fill -C -E -g -o - ~/bin/csc225-labXX-q??.sh ~/bin/labxx.out
+#| ps2pdf - /opt/pub/csc225/submit/csc225-labXX-username.pdf
+#Variables should be used to provide the value of XX in the command string
+#above.
+#Be sure to also change username to your actual username.
+#Note: the a2ps command line above is one long command string.
+#Part of the shell script submission process requires demonstrating its use in a recording
+#shell (step b above). If you try to use the script you are writing for this lab to
+#demonstrate itself, you may enter an infinite recursive loop of recording shells. When it
+#comes time to submit this lab, demonstrate a previously written script within the
+#recording shell instead of this one as part of the lab submission process.
+
+#!/bin/sh
+# File name:    csc225-lab34-q01.sh
+# Author:       Dawn Inman
+# Date Written: 12-25-2019
+# Assignment:   Lab 34  question 1 a,b,c.
+# Purpose:      Make a shell script to submit assignments
+# Description:   first accept a lab number as an argument,if not, exit.
+#               next, execute the script command for that lab number
+#               finally, execute a command string to gather the script
+#               assingments and output of script command that makes
+#               a pdf to submit.
+
+echo $@
+
+if  [ -z "$@" ]; then
+        echo "No Lab number entered." | exit 1
+else
+        script ~/bin/lab"$@".out
+        a2ps -A fill -C -E -g -o - ~/bin/csc225-lab"$@"-q??.sh ~/bin/lab"$@".out| ps2pdf - /opt/pub/csc225/submit/csc225-lab"$@"-dminman.pdf
+
+fi
+

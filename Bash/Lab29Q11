@@ -1,0 +1,37 @@
+#11.Write a basic shell script to sort the file 
+# /opt/pub/csc225/data/filter_examples/names alphabetically inverted (from z to a) by first name.  
+#Be sure to include the shebang and completed file header displayed on the 
+#Shell script submission requirements Page within the Getting Started section on Engage.  
+#Paste the contents of your script below.
+
+#!/bin/bash
+
+# File name: csc225-lab29-q11.sh
+# Author: dminman
+# Date Written: December 11, 2019
+# Assignment: Lab 29, q 11
+# Purpose: To start out writing shell scripts
+# Description: sort the file /opt/pub/csc225/data/filter_examples/names alphabetically inverted by first name.
+#
+#
+#
+
+
+  awk -F,  '{ print$2" "$1 }' /opt/pub/csc225/data/filter_examples/names | sort -r
+
+
+
+
+
+
+
+#~/bin/labxx.out
+
+
+
+
+
+
+# *** This is the command you will execute to submit your scripting labs (modified for this question but not uploaded) ***
+
+#a2ps -A fill -C -E -g -o - ~/bin/csc225-lab29-q11.sh ~/bin/labxx.out | ps2pdf - /opt/pub/csc225/submit/csc225-lab29-#vidminman.pdf
