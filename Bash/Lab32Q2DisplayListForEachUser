@@ -1,0 +1,18 @@
+#2. For each user who submitted a lab, display a list of all submitted labs. 
+#Sample output would resemble: browng: lab4 lab8 lab10 lab13 
+#Search for KEYDEF in the sort manpage for details on how to sort the list of labs numerically. 
+
+#!/bin/bash
+# File name: csc225-lab32-q02.sh
+# Author name: Dawn Inman
+# Date Written: December 21, 2019
+# Purpose: For each User, display a list of all submitted labs
+# Description: variable= User and labs need to be on one line, sorted by number
+# Example: browng: lab4 lab8 lab10 lab13
+#
+#
+#
+users=$(ls /opt/pub/csc225/data/lab28/* | awk -F "[-.]" '{ print $3 }' | sort -u)
+for user in $users; do
+echo "$user:" `ls /opt/pub/csc225/data/lab28/csc225-lab*-$user.pdf | awk -F "-" '{ print $2 }' | sort -n -k 1.4`
+done

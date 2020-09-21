@@ -1,0 +1,32 @@
+#3. Modify script 2 to save the list of labs to a variable instead of directly displaying the output. 
+#As an example, for the browng user, the contents of the variable would be: 
+# 4, 8, 10, 13 
+# sed with a regular expression can be used for this. For example: 
+# echo lab4 lab8 lab10 lab13 | tr –d '\n' | sed 's/lab\([0-9]\+\)/\1,/g;s/,$//' 
+# You’ll need to modify the first command in the pipeline to dynamically insert the list of labs 
+# For testing purposes, within the for loop display the username and the contents of your 
+#saved variable containing the list of labs. Output will resemble: 
+#browng 4, 8, 10, 13 
+#johnsonb 4, 11, 13 
+#jonesw 1, 4, 8 
+#millera 10, 13 
+#smithj 8, 10, 13 
+#williamst 1, 4, 8, 10, 11, 13
+
+#!/bin/bash
+# File name: csc225-lab32-q03.sh
+# Author: Dawn Inman
+# Date Written: December 21, 2019
+# Purpose: For each User, display a list of all submitted labs to a variable
+# Description: variable= User and labs need to be on one line, sorted by number
+# Example: browng: 4, 8, 10, 13
+#but the whole list shows from the variable
+#
+#
+users=$(ls /opt/pub/csc225/data/lab28/* | awk -F "[-.]" '{ print $3 }' | sort -u)
+for user in $users; do
+lab=$(ls /opt/pub/csc225/data/lab28/csc225-lab*-$user.pdf | awk -F "-" '{ print $2 }' | sort -n -k 1.4)
+lablist=$(echo "$lab" | tr -d '\n' | sed 's/lab\([0-9]\+\)/\1,/g;s/,$//')
+echo "$lablist"
+done
+

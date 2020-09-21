@@ -1,0 +1,47 @@
+#!/bin/sh
+# File name: csc225−lab37−q02.sh
+# Author: Dawn Inman
+# Date Written: 12−27−2019
+ # Assignment: Lab 37 question 2
+# Purpose: Check update of nagios plugin and alerts
+# Description: Check how much time has elapsed since the nagios update
+# within 24 hrs, normal exit status; OK: filename−timestamp
+# 24−72 hrs, warning exit status; WARNING: filename−timestamp
+# over 72 hrs, critical exit status; CRITICAL: filename−timestamp
+# I put a couple extra notes in here for futre reference
+echo $*
+file=$*
+
+if [ −z "$file" ] ; then
+	echo "Error: no input received." ; exit 3
+elif [ ! −f "$file" ] ; then
+	echo "Error: file does not exist." ; exit 3
+fi
+
+file_date=$(date −r $file)
+# current time in seconds 
+
+now=$(awk ’BEGIN {srand(); print srand()}’)
+# current seconds convert to hours  printf ’%d’ $(($secs/3600))
+
+ch=$(printf ’%d’ $(($now/3600)))
+# file: getting the difference in hours: first get the seconds of the file 
+
+secs=$(stat −c %X $file)
+# also $(date −r $file +%s) 
+
+# then convert the seconds into hours  printf ’%d’ $(($secs/3600))
+fh=$(printf ’%d’ $(($secs/3600)))
+
+# subtract file hours from current hours
+sum=$(expr $ch − $fh )
+if [ $sum −lt 25 ];
+	then
+		echo "OK: $file−$file_date " ; exit 0
+elif [ $sum −gt 24 ] && [ $sum −lt 72 ] ;
+	then
+		echo "WARNING: $file−$file_date ("$sum" hours)" ; exit 1
+elif [ $sum −gt 72 ] ;
+	then
+		echo "CRITICAL: $file−$file_date ($(($sum/24))days)" ; exit 2
+fi

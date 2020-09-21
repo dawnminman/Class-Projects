@@ -1,0 +1,15 @@
+Write a shell script which will accept up to 9 words as arguments and 
+#display each of the words in uppercase.
+
+#!/bin/sh
+# File name: csc225−lab33−q01.sh
+# Author: Dawn Inman
+# Date Written: 12−23−2019
+# Assignment: Lab 33 question 1
+# Purpose: change lowercase to capitals
+# Description: obtain user input to change any list of words
+# from lower case or mixed case to all capital letters
+#
+#
+echo $1 $2 $3 $4 $5 $6 $7 $8 $9| tr ’a−z’ ’A−Z’
+
